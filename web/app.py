@@ -11,7 +11,7 @@ db = client.MoneyManagementDB
 users = db["Users"]
 
 def UserExist(username):
-    if users.find({"Username":username}).count() == 0:
+    if users.find({"Username":username}):
         return False
     else:
         return True
@@ -35,7 +35,7 @@ class Register(Resource):
         hashed_pw = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
 
         #Store username and pw into the database
-        users.insert({
+        users.insert_one({
             "Username": username,
             "Password": hashed_pw,
             "Own":0,
@@ -92,7 +92,7 @@ def verifyCredentials(username, password):
     return None, False
 
 def updateAccount(username, balance):
-    users.update({
+    users.update_one({
         "Username": username
     },{
         "$set":{
@@ -101,7 +101,7 @@ def updateAccount(username, balance):
     })
 
 def updateDebt(username, balance):
-    users.update({
+    users.update_one({
         "Username": username
     },{
         "$set":{
