@@ -120,8 +120,8 @@ class Add(Resource):
         money = postedData["amount"]
 
         retJson, error = verifyCredentials(username, password)
-        if error:
-            return jsonify(retJson)
+        #if error:
+        #    return jsonify(retJson)
 
         if money<=0:
             return jsonify(generateReturnDictionary(304, "The money amount entered must be greater than 0"))
@@ -183,8 +183,8 @@ class Balance(Resource):
         password = postedData["password"]
 
         retJson, error = verifyCredentials(username, password)
-        if error:
-            return jsonify(retJson)
+        #if error:
+        #    return jsonify(retJson)
 
         retJson = users.find({
             "Username": username
